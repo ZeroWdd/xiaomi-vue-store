@@ -108,7 +108,8 @@ export default {
                 // let user = JSON.stringify(res.data.data);
                 // localStorage.setItem("user", user);
                 // 登录信息存到vuex
-                this.setUser(res.data.data);
+                this.setUser(res.data.data.user);
+                this.setCookie("XM_TOKEN", res.data.data.cookie)
                 // 弹出通知框提示登录成功信息
                 this.notifySucceed(res.data.msg);
               } else {
@@ -125,7 +126,12 @@ export default {
           return false;
         }
       });
-    }
+    },
+    setCookie(key,value,t){
+      var oDate=new Date();
+      oDate.setDate(oDate.getDate()+t);
+      document.cookie=key+"="+value+"; expires="+oDate.toDateString();
+    } 
   }
 };
 </script>
